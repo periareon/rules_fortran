@@ -1,0 +1,7 @@
+load("//fortran:defs.bzl", "fortran_binary")
+
+fortran_binary(
+    name = "bin_with_shared",
+    srcs = ["main.f90"],
+    deps = ["//fortran/private/tests/shared_library:greeting"],
+)

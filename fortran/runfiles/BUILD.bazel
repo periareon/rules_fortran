@@ -1,0 +1,15 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+load("//fortran:defs.bzl", "fortran_library")
+
+cc_library(
+    name = "runfiles_c",
+    srcs = ["runfiles.c"],
+    hdrs = ["runfiles.h"],
+)
+
+fortran_library(
+    name = "runfiles",
+    srcs = ["runfiles.f90"],
+    visibility = ["//visibility:public"],
+    deps = [":runfiles_c"],
+)

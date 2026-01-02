@@ -1,0 +1,7 @@
+load("//fortran:defs.bzl", "fortran_shared_library")
+
+fortran_shared_library(
+    name = "greeting",
+    srcs = ["greeting.f90"],
+    visibility = ["//fortran/private/tests:__subpackages__"],
+)

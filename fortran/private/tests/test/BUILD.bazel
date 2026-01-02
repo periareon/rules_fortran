@@ -1,0 +1,6 @@
+load("//fortran:defs.bzl", "fortran_test")
+
+fortran_test(
+    name = "test",
+    srcs = ["test_main.f90"],
+)

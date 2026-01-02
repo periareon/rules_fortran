@@ -1,0 +1,91 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("//fortran/private:toolchain.bzl", "current_fortran_toolchain")
+
+exports_files([
+    "defs.bzl",
+    "fortran_binary.bzl",
+    "fortran_library.bzl",
+    "fortran_shared_library.bzl",
+    "fortran_test.bzl",
+    "fortran_toolchain.bzl",
+])
+
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+current_fortran_toolchain(
+    name = "current_fortran_toolchain",
+    visibility = ["//visibility:public"],
+)
+
+bzl_library(
+    name = "defs_bzl",
+    srcs = [
+        "defs.bzl",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":fortran_binary_bzl",
+        ":fortran_library_bzl",
+        ":fortran_shared_library_bzl",
+        ":fortran_test_bzl",
+        ":fortran_toolchain_bzl",
+    ],
+)
+
+bzl_library(
+    name = "fortran_binary_bzl",
+    srcs = [
+        "fortran_binary.bzl",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//fortran/private:bzl_lib",
+    ],
+)
+
+bzl_library(
+    name = "fortran_library_bzl",
+    srcs = [
+        "fortran_library.bzl",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//fortran/private:bzl_lib",
+    ],
+)
+
+bzl_library(
+    name = "fortran_shared_library_bzl",
+    srcs = [
+        "fortran_shared_library.bzl",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//fortran/private:bzl_lib",
+    ],
+)
+
+bzl_library(
+    name = "fortran_test_bzl",
+    srcs = [
+        "fortran_test.bzl",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//fortran/private:bzl_lib",
+    ],
+)
+
+bzl_library(
+    name = "fortran_toolchain_bzl",
+    srcs = [
+        "fortran_toolchain.bzl",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//fortran/private:bzl_lib",
+    ],
+)

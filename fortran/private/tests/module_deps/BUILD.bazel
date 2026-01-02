@@ -1,0 +1,33 @@
+load("//fortran:defs.bzl", "fortran_library", "fortran_test")
+
+# Demonstrates the split-target pattern for Fortran module dependencies.
+#
+# Fortran modules are compiler-generated artifacts (.mod files), so sources
+# within a single target compile as independent parallel actions. If source A
+# defines a module that source B USEs, they must be in separate targets linked
+# via deps so Bazel compiles A before B.
+#
+#   constants (defines module constants)
+#       ^
+#       |
+#   geometry  (USE constants -> defines module geometry)
+#       ^
+#       |
+#   test_module_deps (USE geometry)
+
+fortran_library(
+    name = "constants",
+    srcs = ["constants.f90"],
+)
+
+fortran_library(
+    name = "geometry",
+    srcs = ["geometry.f90"],
+    deps = [":constants"],
+)
+
+fortran_test(
+    name = "test_module_deps",
+    srcs = ["main.f90"],
+    deps = [":geometry"],
+)

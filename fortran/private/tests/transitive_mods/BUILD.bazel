@@ -1,0 +1,33 @@
+load("//fortran:defs.bzl", "fortran_library", "fortran_test")
+
+# Regression test for transitive module propagation.
+#
+# The test target depends only on :operations (not :types), but its source
+# directly USEs types_mod. This requires FortranInfo.mods to carry
+# transitive module directories so the compiler can find types_mod.mod
+# via -I.
+#
+#   types (defines module types_mod with derived type point_t)
+#       ^
+#       |
+#   operations (USE types_mod -> defines module ops_mod)
+#       ^
+#       |
+#   test_transitive_mods (USE types_mod + USE ops_mod, deps ONLY on operations)
+
+fortran_library(
+    name = "types",
+    srcs = ["types.f90"],
+)
+
+fortran_library(
+    name = "operations",
+    srcs = ["operations.f90"],
+    deps = [":types"],
+)
+
+fortran_test(
+    name = "test_transitive_mods",
+    srcs = ["main.f90"],
+    deps = [":operations"],
+)

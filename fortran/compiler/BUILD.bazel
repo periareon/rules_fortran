@@ -1,0 +1,49 @@
+"""Config settings for Fortran compilers.
+
+Targets that require compiler-specific flags can use the config_settings defined
+in this package in their select() statements.
+
+Example:
+
+  fortran_library(
+    name = "foo",
+    srcs = ["foo.f90"],
+    fopts = select({
+        "@rules_fortran//fortran/compiler:gfortran": ["-frecursive"],
+        "@rules_fortran//fortran/compiler:flang": [],
+        "@rules_fortran//fortran/compiler:ifx": ["-assume", "recursion"],
+        "//conditions:default": [],
+    }),
+  )
+"""
+
+load("//fortran/private:compiler_flag.bzl", "compiler_flag")
+
+package(default_visibility = ["//visibility:public"])
+
+compiler_flag(name = "compiler")
+
+config_setting(
+    name = "gfortran",
+    flag_values = {":compiler": "gfortran"},
+)
+
+config_setting(
+    name = "flang",
+    flag_values = {":compiler": "flang"},
+)
+
+config_setting(
+    name = "ifx",
+    flag_values = {":compiler": "ifx"},
+)
+
+config_setting(
+    name = "nagfor",
+    flag_values = {":compiler": "nagfor"},
+)
+
+config_setting(
+    name = "lfortran",
+    flag_values = {":compiler": "lfortran"},
+)

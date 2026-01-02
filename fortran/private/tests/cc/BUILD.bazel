@@ -1,0 +1,47 @@
+load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
+load("//fortran:defs.bzl", "fortran_library", "fortran_test")
+
+# Fortran library with C bindings for use from C++
+fortran_library(
+    name = "fortran_lib",
+    srcs = ["fortran_lib.f90"],
+    visibility = ["//visibility:public"],
+)
+
+# C++ library that uses Fortran library
+cc_library(
+    name = "cc_wrapper",
+    srcs = ["cc_wrapper.cc"],
+    visibility = ["//visibility:public"],
+    deps = [":fortran_lib"],
+)
+
+# C++ test that uses Fortran library via C++ wrapper
+cc_test(
+    name = "cc_wrapper_test",
+    srcs = ["cc_wrapper_test.cc"],
+    deps = [":fortran_lib"],  # Direct dependency on Fortran library
+)
+
+# C++ library with C interface for use from Fortran
+cc_library(
+    name = "cc_lib",
+    srcs = ["cc_lib.cc"],
+    hdrs = ["cc_lib.h"],
+    visibility = ["//visibility:public"],
+)
+
+# Fortran library that uses C++ library
+fortran_library(
+    name = "fortran_using_cc",
+    srcs = ["fortran_using_cc.f90"],
+    visibility = ["//visibility:public"],
+    deps = [":cc_lib"],
+)
+
+# Fortran test that uses C++ library
+fortran_test(
+    name = "fortran_test_cc",
+    srcs = ["fortran_test_cc.f90"],
+    deps = [":fortran_using_cc"],
+)

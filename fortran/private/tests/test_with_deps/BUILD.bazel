@@ -1,0 +1,7 @@
+load("//fortran:defs.bzl", "fortran_test")
+
+fortran_test(
+    name = "test_with_deps",
+    srcs = ["test_main.f90"],
+    deps = ["//fortran/private/tests/library:math_utils"],
+)

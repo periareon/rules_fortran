@@ -1,0 +1,7 @@
+load("//fortran:defs.bzl", "fortran_library")
+
+fortran_library(
+    name = "math_utils",
+    srcs = ["math_utils.f90"],
+    visibility = ["//fortran/private/tests:__subpackages__"],
+)

@@ -1,0 +1,8 @@
+load("//fortran:defs.bzl", "fortran_test")
+
+fortran_test(
+    name = "runfiles_test",
+    srcs = ["runfiles_test.f90"],
+    data = ["test_data.txt"],
+    deps = ["//fortran/runfiles"],
+)
