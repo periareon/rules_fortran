@@ -268,7 +268,7 @@ fortran_test(<a href="#fortran_test-name">name</a>, <a href="#fortran_test-deps"
 <pre>
 load("@rules_fortran//fortran:defs.bzl", "fortran_toolchain")
 
-fortran_toolchain(<a href="#fortran_toolchain-name">name</a>, <a href="#fortran_toolchain-cc_toolchain">cc_toolchain</a>, <a href="#fortran_toolchain-compile_flags">compile_flags</a>, <a href="#fortran_toolchain-fortran">fortran</a>, <a href="#fortran_toolchain-link_flags">link_flags</a>)
+fortran_toolchain(<a href="#fortran_toolchain-name">name</a>, <a href="#fortran_toolchain-cc_toolchain">cc_toolchain</a>, <a href="#fortran_toolchain-compile_flags">compile_flags</a>, <a href="#fortran_toolchain-compiler">compiler</a>, <a href="#fortran_toolchain-fortran">fortran</a>, <a href="#fortran_toolchain-link_flags">link_flags</a>)
 </pre>
 <p>Defines a Fortran toolchain that provides the Fortran compiler and compilation/linking flags.</p>
 <p><strong>ATTRIBUTES</strong></p>
@@ -276,6 +276,7 @@ fortran_toolchain(<a href="#fortran_toolchain-name">name</a>, <a href="#fortran_
 <tr><td style="text-align: left"><a id="fortran_toolchain-name"></a>name</td><td style="text-align: left">A unique name for this target.</td><td style="text-align: left"><a href="https://bazel.build/concepts/labels#target-names">Name</a></td><td style="text-align: left">required</td><td style="text-align: left"></td></tr>
 <tr><td style="text-align: left"><a id="fortran_toolchain-cc_toolchain"></a>cc_toolchain</td><td style="text-align: left">The C++ toolchain to use for linking. If not provided, will attempt to find one from the default C++ toolchain.</td><td style="text-align: left"><a href="https://bazel.build/concepts/labels">Label</a></td><td style="text-align: left">optional</td><td style="text-align: left"><code>None</code></td></tr>
 <tr><td style="text-align: left"><a id="fortran_toolchain-compile_flags"></a>compile_flags</td><td style="text-align: left">Additional compiler flags to use when compiling Fortran source files.</td><td style="text-align: left">List of strings</td><td style="text-align: left">optional</td><td style="text-align: left"><code>[]</code></td></tr>
+<tr><td style="text-align: left"><a id="fortran_toolchain-compiler"></a>compiler</td><td style="text-align: left">Identifier for the Fortran compiler (e.g. gfortran, flang, ifx). Used by config_settings at //fortran/compiler/ for select().</td><td style="text-align: left">String</td><td style="text-align: left">optional</td><td style="text-align: left"><code>""</code></td></tr>
 <tr><td style="text-align: left"><a id="fortran_toolchain-fortran"></a>fortran</td><td style="text-align: left">The Fortran compiler executable (e.g., gfortran).</td><td style="text-align: left"><a href="https://bazel.build/concepts/labels">Label</a></td><td style="text-align: left">optional</td><td style="text-align: left"><code>None</code></td></tr>
 <tr><td style="text-align: left"><a id="fortran_toolchain-link_flags"></a>link_flags</td><td style="text-align: left">Additional linker flags to use when linking Fortran executables and libraries (e.g., -lgfortran).</td><td style="text-align: left">List of strings</td><td style="text-align: left">optional</td><td style="text-align: left"><code>[]</code></td></tr>
 </tbody></table>
