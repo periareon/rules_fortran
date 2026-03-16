@@ -272,6 +272,22 @@ fortran_toolchain(<a href="#fortran_toolchain-name">name</a>, <a href="#fortran_
                   <a href="#fortran_toolchain-module_dir_flag">module_dir_flag</a>, <a href="#fortran_toolchain-module_search_flag">module_search_flag</a>, <a href="#fortran_toolchain-object_extension">object_extension</a>, <a href="#fortran_toolchain-output_flag">output_flag</a>)
 </pre>
 <p>Defines a Fortran toolchain that provides the Fortran compiler and compilation/linking flags.</p>
+<p>Example:</p>
+<pre><code class="language-python">load("@rules_fortran//fortran:fortran_toolchain.bzl", "fortran_toolchain")
+
+fortran_toolchain(
+    name = "gfortran_toolchain",
+    compiler = "gfortran",
+    fortran = "@gcc_toolchain//:bin/gfortran",
+    compile_flags = ["-O2"],
+    link_flags = ["-lgfortran"],
+)
+
+Register the resulting toolchain with:
+
+```python
+register_toolchains("//:gfortran_toolchain")
+</code></pre>
 <p><strong>ATTRIBUTES</strong></p>
 <div class="table-wrapper"><table><thead><tr><th style="text-align: left">Name</th><th style="text-align: left">Description</th><th style="text-align: left">Type</th><th style="text-align: left">Mandatory</th><th style="text-align: left">Default</th></tr></thead><tbody>
 <tr><td style="text-align: left"><a id="fortran_toolchain-name"></a>name</td><td style="text-align: left">A unique name for this target.</td><td style="text-align: left"><a href="https://bazel.build/concepts/labels#target-names">Name</a></td><td style="text-align: left">required</td><td style="text-align: left"></td></tr>

@@ -156,7 +156,39 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="rules_fortran"><a class="header" href="#rules_fortran">rules_fortran</a></h1>
-<p>Bazel rules for <a href="https://fortran-lang.org/">Fortran</a>.</p>
+<p>Bazel rules for <a href="https://fortran-lang.org/">Fortran</a>, providing Bazel-native targets for building, testing, and configuring Fortran code via toolchains and a module extension.</p>
+<h2 id="installation-and-setup"><a class="header" href="#installation-and-setup">Installation and setup</a></h2>
+<p>These rules assume you are using Bazel with bzlmod (a <code>MODULE.bazel</code> file).</p>
+<p>Add a dependency on <code>rules_fortran</code> and enable the module extension that auto-detects a Fortran toolchain:</p>
+<pre><code class="language-starlark">bazel_dep(name = "rules_fortran", version = "&lt;latest&gt;")
+</code></pre>
+<p>This will use the host Fortran compiler discovered by the extension (for example, <code>gfortran</code> if present on your system).</p>
+<h2 id="minimal-examples"><a class="header" href="#minimal-examples">Minimal examples</a></h2>
+<p><strong>Library and binary</strong></p>
+<pre><code class="language-python">load("@rules_fortran//fortran:fortran_binary.bzl", "fortran_binary")
+load("@rules_fortran//fortran:fortran_library.bzl", "fortran_library")
+
+fortran_library(
+    name = "math_lib",
+    srcs = ["math.f90"],
+)
+
+fortran_binary(
+    name = "app",
+    srcs = ["main.f90"],
+    deps = [":math_lib"],
+)
+</code></pre>
+<p><strong>Test</strong></p>
+<pre><code class="language-python">load("@rules_fortran//fortran:fortran_test.bzl", "fortran_test")
+
+fortran_test(
+    name = "math_test",
+    srcs = ["math_test.f90"],
+    deps = [":math_lib"],
+)
+</code></pre>
+<p>For more attributes, configuration options, and module-extension behavior, continue to the <a href="./rules.html">rules reference</a>.</p>
 
                     </main>
 
